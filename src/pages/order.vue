@@ -1,23 +1,23 @@
 <template>
     <div>
-        <nav-header />
+        <order-header />
         <router-view />
         <nav-footer />
     </div>
 </template>
 
 <script>
-import NavHeader from '../components/NavHeader'
 import NavFooter from '../components/NavFooter'
+import OrderHeader from '../components/OrderHeader'
 export default {
-   name:'',
+   name:'order',
    data() {
       return {
       }
    },
    components: {
-       NavHeader,
-       NavFooter
+       NavFooter,
+       OrderHeader
    }
 
 }

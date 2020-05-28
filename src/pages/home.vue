@@ -10,7 +10,7 @@
 import NavHeader from '../components/NavHeader'
 import NavFooter from '../components/NavFooter'
 export default {
-   name:'',
+   name:'home',
    data() {
       return {
       }

@@ -1,12 +1,12 @@
 <template>
     <div>
-        index
+        order_header
     </div>
 </template>
 
 <script>
 export default {
-   name:'index',
+   name:'',
    data() {
       return {
       }
