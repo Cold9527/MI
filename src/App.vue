@@ -4,15 +4,15 @@
   </div>
 </template>
 <script>
-// import axios from "axios"
+import storage from "./storage"
 export default {
   data(){
     return {
  
     }
   },
-  mounted(){
-   
+  mounted(){   
+   storage.setItem('b', 1)
   }
 }
 </script>
