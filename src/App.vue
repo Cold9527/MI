@@ -4,37 +4,35 @@
   </div>
 </template>
 <script>
-import storage from "./storage"
+
 export default {
   data(){
     return {
- 
+
     }
   },
-  mounted(){   
-   storage.setItem('b', 1)
+  mounted(){
+    this.getUser(),
+    this.getCartCount()
+  },
+  methods:{
+    getUser(){
+      this.axios.get('/user').then(()=>{
+
+      })
+    },
+    getCartCount(){
+      this.axios.get('/carts/products/sum').then(()=>{
+
+      })
+    }
   }
+
 }
 </script>
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<style lang='scss'>
+@import '../resource/scss/reset.scss';
+@import '../resource/scss/config.scss';
+@import '../resource/scss/button.scss';
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>

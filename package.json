@@ -11,10 +11,12 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
+    "css-loader": "^3.5.3",
     "element-ui": "^2.13.2",
     "jsonp": "^0.2.1",
     "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2",
+    "swiper": "^5.4.1",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",
     "vue-axios": "^2.1.5",
