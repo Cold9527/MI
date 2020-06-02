@@ -48,7 +48,8 @@ export default {
       height:70px;
       line-height:70px;
       border-top:1px solid $colorH;
-      background-color:$colorG;      
+      background-color:$colorG;  
+      z-index:10;    
       &.isFixed{
          position:fixed;
          top:0;

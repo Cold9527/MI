@@ -79,7 +79,7 @@
                     <div class="item-info">
                       <h3>{{item.name}}</h3>
                       <p>{{item.subtitle}}</p>
-                      <p class="price" @click="addCart">{{item.price}}元</p>
+                      <p class="price" @click="addCart(item.id)">{{item.price}}元</p>
                     </div>
                   </div>
                 </div>
@@ -219,16 +219,17 @@ export default {
     close(){
       this.showModal = false;
     },
-    addCart(){
-      this.showModal = true
-      // this.axios.post('/carts', {
-      //   productId:id,
-      //   selected:true
-      // }).then(() => {
-
-      // }).catch(() =>{
-      //   this.showModal  = true;
-      // })
+    addCart(id){
+      this.axios.post('/carts',{
+        productId: id,
+        selected:true
+      }).then((res)=>{
+        this.showModal = true
+        this.$store.dispatch('saveCartCount', res.cartTotalQuantity);
+      }).catch(()=>{
+        this.showModal = true
+      })
+      
     },
     init(){
       this.axios.get("/products", {
