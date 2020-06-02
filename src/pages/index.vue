@@ -49,7 +49,7 @@
             </swiper>
           </div>
           <div class="ads-box">
-            <a :href="'/#/product' + item.id" v-for='item in adsList' :key="item.id">
+            <a :href="'/#/product/' + item.id" v-for='item in adsList' :key="item.id">
               <img v-lazy='item.img' alt="">
             </a>
           </div>
