@@ -167,7 +167,6 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-@import url('../../resource/scss/base.scss');
 @import '../../resource/scss/config.scss';
 @import '../../resource/scss/minx.scss';
     .header{
@@ -201,31 +200,6 @@ export default {
                position: relative;
                height: 112px;
                @include flex();
-              .header-logo{
-                  display: inline-block;
-                  width: 55px;
-                  height: 55px;
-                  background-color: #FF6000;
-                  a{
-                      display: inline-block;
-                      width: 110px;
-                      height: 55px;
-                      &::before{
-                          content:' ';
-                          @include bgImg($w:55px,$h:55px,$img:'/imgs/mi-logo.png',$size:55px);
-                          transition: margin .2s;
-                      }
-                      &::after{
-                          content:' ';
-                          @include bgImg($w:55px,$h:55px,$img:'/imgs/mi-home.png',$size:55px);
-              
-                      }
-                      &:hover::before{
-                          margin-left:-55px;
-                          transition: margin .2s;
-                      }
-                  }
-              }
               .header-meun{
                 display: inline-block;
                 width: 643px;

@@ -1,3 +1,4 @@
+@import 'minx.scss';
 .container{
     width: 1226px;
     margin:0 auto;
@@ -26,4 +27,30 @@ input{
 }
 .clearfix:after{
     clear: both;
+}
+.header-logo{
+    display: inline-block;
+    width: 55px;
+    height: 55px;
+    background-color: #FF6000;
+    overflow: hidden;
+    a{
+        display: inline-block;
+        width: 110px;
+        height: 55px;
+        &::before{
+            content:' ';
+            @include bgImg($w:55px,$h:55px,$img:'/imgs/mi-logo.png',$size:55px);
+            transition: margin .2s;
+        }
+        &::after{
+            content:' ';
+            @include bgImg($w:55px,$h:55px,$img:'/imgs/mi-home.png',$size:55px);
+
+        }
+        &:hover::before{
+            margin-left:-55px;
+            transition: margin .2s;
+        }
+    }
 }

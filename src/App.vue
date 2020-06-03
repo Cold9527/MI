@@ -31,6 +31,7 @@ export default {
 }
 </script>
 <style lang='scss'>
+@import '../resource/scss/base.scss';
 @import '../resource/scss/reset.scss';
 @import '../resource/scss/config.scss';
 @import '../resource/scss/button.scss';
