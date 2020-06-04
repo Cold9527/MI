@@ -33,8 +33,8 @@ export default {
   name: 'login',
   data(){
     return {
-      username:'',
-      password:'',
+      username:'admin',
+      password:'admin',
       userId:''
     }
   },
@@ -45,10 +45,15 @@ export default {
             username, 
             password
         }).then((res)=>{
-            this.$cookie.set('userId', res.id, {expires:'1M'})
+            this.$cookie.set('userId', res.id, {expires:'Session'})
             // this.$store.dispatch('saveUserName', res.username)
             this.saveUserName(res.username)
-            this.$router.push('/index')
+            this.$router.push({
+              name:'Index',
+              params:{
+                from:'login'
+              }
+            })
         })
     },
     ...mapActions(['saveUserName']),
@@ -58,7 +63,7 @@ export default {
             password:'vidy', 
             email:'343707313@qq.com'
         }).then(()=>{
-            alert('注册成功')
+            this.$Message.success('注册成功')
         })        
     }
   }
