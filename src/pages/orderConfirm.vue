@@ -25,7 +25,7 @@
           <div class="item-address">
             <h2 class="addr-title">收货地址</h2>
             <div class="addr-list clearfix">
-              <div class="addr-info" v-for="(item,index) in list" :key="index">
+              <div class="addr-info" :class="{ 'checked':index==checkedIndex }" @click='checkedIndex=index' v-for="(item,index) in list" :key="index">
                 <h2>{{item.receiverName}}</h2>
                 <div class="phone">{{item.receiverMobile}}</div>
                 <div class="street">{{item.receiverProvince + ' ' + item.receiverCity + ' ' + item.receiverDistrict + ' ' + item.receiverAddress}}</div>
@@ -35,14 +35,14 @@
                       <use xlink:href="#icon-del"></use>
                     </svg>
                   </a>
-                  <a href="javascript:;" class="fr">
+                  <a href="javascript:;" class="fr" @click='editAddressModel(item)'>
                     <svg class="icon icon-edit">
                       <use xlink:href="#icon-edit"></use>
                     </svg>
                   </a>
                 </div>
               </div>
-              <div class="addr-add">
+              <div class="addr-add" @click='openAddressModel'>
                 <div class="icon-add"></div>
                 <div>添加新地址</div>
               </div>
@@ -94,11 +94,53 @@
           </div>
           <div class="btn-group">
             <a href="/#/cart" class="btn btn-default btn-large">返回购物车</a>
-            <a href="javascript:;" class="btn btn-large">去结算</a>
+            <a href="javascript:;" class="btn btn-large" @click='orderSubmit'>去结算</a>
           </div>
         </div>
       </div>
     </div>
+    <modal 
+        title="添加收货地址" 
+        btnType='3' 
+        :showModal='showEditModal'
+        @submit='submitAddress'
+        @cancel='showEditModal=false'
+    >
+        <template v-slot:body>
+            <div class="edit-wrap">
+              <div class="item">
+                <input type="text" class="input" placeholder="姓名" v-model="checkedItem.receiverName">
+                <input type="text" class="input" placeholder="手机号" v-model="checkedItem.receiverMobile">
+              </div>
+              <div class="item">
+                <select name='province' v-model="checkedItem.receiverProvince">
+                  <option value="北京">北京</option>
+                  <option value="天津">天津</option>
+                  <option value="河北">河北</option>
+                </select>
+                  <select name='city' v-model='checkedItem.receiverCity'>
+                  <option value="北京">北京</option>
+                  <option value="天津">天津</option>
+                  <option value="石家庄">石家庄</option>
+                </select>
+                <select name='district' v-model='checkedItem.receiverDistrict'>
+                  <option value="北京">昌平区</option>
+                  <option value="天津">海淀区</option>
+                  <option value="河北">东城区</option>
+                  <option value="天津">西城区</option>
+                  <option value="河北">顺义区</option> 
+                  <option value="河北">房山区</option>                  
+                </select>                              
+              </div>
+              <div class="item" >
+                <textarea name='street' v-model='checkedItem.receiverAddress'></textarea>
+              </div>
+              <div class="item">
+                <input type="text" class="input" placeholder="邮编" v-model='checkedItem.receiverZip'>
+              </div>
+            </div>
+        </template>
+    </modal>       
     <modal 
         title="删除确认" 
         btnType='1' 
@@ -128,7 +170,9 @@ export default {
         count:0,//商品结算数量
         checkedItem:{},//选中的商品对象
         userAction: '',//用户的行为 0：新增 1：编辑 2：删除
-        showModal:false
+        showModal:false,
+        showEditModal:false,
+        checkedIndex:0
       }
    },
    mounted(){
@@ -141,6 +185,16 @@ export default {
                this.list = res.list
            })
        },
+       openAddressModel(){
+         this.userAction = 0
+         this.checkedItem = {}
+         this.showEditModal = true
+       },
+       editAddressModel(item){
+         this.userAction = 1
+         this.checkedItem = item
+         this.showEditModal = true
+       },
        delAddress(item){
            this.checkedItem = item;
            this.userAction = 2
@@ -148,25 +202,58 @@ export default {
        },
        //地址删除，新增，编辑功能
        submitAddress(){
-           let { checkedItem, userAction } = this
-           let method, url;
-           if(userAction == 0){
-               method = 'post', url = '/shippings'
-           }else if (userAction == 1){
-               method = 'put', url = `/shippings/${checkedItem.id}`
-           }else{
-               method = 'delete', url = `/shippings/${checkedItem.id}`
-           }
-           this.axios[method](url).then(()=>{
-                this.closeModal()
-                this.getAddressList()
-                this.$Message.success('操作成功')
-            })
+          let { checkedItem, userAction } = this
+          let method, url, params={}
+          if(userAction == 0){
+              method = 'post', url = '/shippings'
+          }else if (userAction == 1){
+              method = 'put', url = `/shippings/${checkedItem.id}`
+          }else{
+              method = 'delete', url = `/shippings/${checkedItem.id}`
+          }
+          if(userAction== 0 || userAction==1){
+            let { receiverName,receiverMobile,receiverProvince,receiverCity,receiverDistrict,receiverAddress,receiverZip } = checkedItem
+            let errMsg 
+            // receiverName = this.$refs.input1.value
+            if(!receiverName){
+              errMsg = '请输入收货人名称'
+            }else if(!receiverMobile ||  !/\d{11}/.test(receiverMobile)){
+              errMsg = '请输入正确格式的手机号'
+            }else if(!receiverProvince){
+              errMsg = '请选择省份'
+            }else if(!receiverCity){
+              errMsg = '请选择城市'
+            }else if(!receiverAddress || !receiverAddress){
+              errMsg = '请填写详细的收货地址'
+            }else if(!/\d{6}/.test(receiverZip)){
+              errMsg = '请填写正确的邮编'
+            }
+            if(errMsg){
+              this.$Message.error(errMsg)
+              return
+            }
+            console.log(receiverName)
+            params = {
+              receiverName,
+              receiverMobile,
+              receiverProvince,
+              receiverCity,
+              receiverDistrict,
+              receiverAddress,
+              receiverZip,
+            }
+          }
+          this.axios[method](url,params).then(()=>{
+              this.closeModal()
+              this.getAddressList()
+              this.$Message.success('操作成功')
+          })
        },
        closeModal(){
            this.checkedItem = {};
            this.userAction = ' '
-           this.showModal = false           
+           this.showModal = false  
+           this.showEditModal = false         
        },
        getCartList(){
            this.axios.get('/carts').then((res)=>{
@@ -178,6 +265,23 @@ export default {
                })
   
            })
+       },
+       orderSubmit(){
+         let item = this.list[this.checkedIndex]
+         if(!item){
+           this.$Message.error('请选择一个收货地址')
+           return
+         }
+         this.axios.post('/orders',{
+           shippingId:item.id
+         }).then((res)=>{
+           this.$router.push({
+             path:'/order/pay', 
+             query:{
+               orderNo:res.orderNo
+             }
+           })
+         }) 
        }
    }
 
