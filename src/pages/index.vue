@@ -10,7 +10,7 @@
                     <ul v-for="item in menuList" :key="item.index">
                       <li v-for="sub in item" :key="sub.index">
                         <a :href="sub ? '/#/product/'+sub.id : ''">
-                          <img v-lazy="sub ? sub.img : '/imgs/item-box-1.png'">
+                          <img v-lazy="sub ? sub.img : 'imgs/item-box-1.png'">
                           {{ sub ? sub.name : '小米9'}}
                         </a>
                       </li>
@@ -55,7 +55,7 @@
           </div>
           <div class="banner">
             <a href="/#/product/30">
-              <img v-lazy="'/imgs/banner-1.png'" alt=''>
+              <img v-lazy="'imgs/banner-1.png'" alt=''>
             </a>
           </div>
         </div>
@@ -135,41 +135,41 @@ export default {
       slideList: [
         {
           id: '42',
-          img: '/imgs/slider/slide-1.jpg'
+          img: 'imgs/slider/slide-1.jpg'
         },{
           id: '45',
-          img: '/imgs/slider/slide-2.jpg'
+          img: 'imgs/slider/slide-2.jpg'
         },{
           id: '46',
-          img: '/imgs/slider/slide-3.jpg'
+          img: 'imgs/slider/slide-3.jpg'
         },{
           id: '',
-          img: '/imgs/slider/slide-4.jpg'
+          img: 'imgs/slider/slide-4.jpg'
         }  ,{
           id: '',
-          img: '/imgs/slider/slide-5.jpg'
+          img: 'imgs/slider/slide-5.jpg'
         }            
       ],
       menuList:[
         [
           {
             id:'30',
-            img:'/imgs/item-box-1.png',
+            img:'imgs/item-box-1.png',
             name:'小米cc9'       
           },
           {
             id:'31',
-            img:'/imgs/item-box-2.png',
+            img:'imgs/item-box-2.png',
             name:'小米8青春版'       
           },
           {
             id:'32',
-            img:'/imgs/item-box-3.jpg',
+            img:'imgs/item-box-3.jpg',
             name:'Redmi K20 Rro'       
           },   
           {
             id:'33',
-            img:'/imgs/item-box-4.jpg',
+            img:'imgs/item-box-4.jpg',
             name:'移动4G专区'       
           },                  
         ],[
@@ -187,16 +187,16 @@ export default {
       adsList:[
         {
           id:33,
-          img:'/imgs/ads/ads-1.png'
+          img:'imgs/ads/ads-1.png'
         },{
           id:46,
-          img:'/imgs/ads/ads-2.jpg'
+          img:'imgs/ads/ads-2.jpg'
         },{
           id:48,
-          img:'/imgs/ads/ads-3.png'
+          img:'imgs/ads/ads-3.png'
         },{
           id:47,
-          img:'/imgs/ads/ads-4.jpg'
+          img:'imgs/ads/ads-4.jpg'
         }
       ],
       phoneList:[],

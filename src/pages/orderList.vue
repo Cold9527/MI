@@ -42,7 +42,7 @@
             </div>
           </div>
           <el-pagination
-            v-if="false"
+            v-if="true"
             class="pagination"
             background
             layout="prev, pager, next"
@@ -55,10 +55,11 @@
           </div>     
           <div class="scroll-more"
             v-infinite-scroll='scrollMore'
-            infinite-scroll-disabled='busy'
+            infinite-scroll-disabled='true'
             infinite-scroll-distance='410'
+            v-if="false"
           >
-              <img src="/imgs/loading-svg/loading-spinning-bubbles.svg" alt="" v-show="loading">
+              <img src="imgs/loading-svg/loading-spinning-bubbles.svg" alt="" v-show="loading">
           </div>    
           <no-data v-if=" !loading && list.length==0"></no-data>
         </div>

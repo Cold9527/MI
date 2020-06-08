@@ -51,7 +51,7 @@
                                 <li class="product">
                                     <a href="" target='_blank'>
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-1.jpg" />
+                                            <img src="imgs/nav-img/nav-3-1.jpg" />
                                         </div>
                                         <div class="pro-name">Redmi 智能电视 MAX 98''</div>
                                         <div class="pro-price">19999元</div>
@@ -60,7 +60,7 @@
                                 <li class="product">
                                     <a href="" target='_blank'>
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-2.jpg" />
+                                            <img src="imgs/nav-img/nav-3-2.jpg" />
                                         </div>
                                         <div class="pro-name">小米电视4A 60英寸</div>
                                         <div class="pro-price">2199元</div>
@@ -69,7 +69,7 @@
                                 <li class="product">
                                     <a href="" target='_blank'>
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-3.png" />
+                                            <img src="imgs/nav-img/nav-3-3.png" />
                                         </div>
                                         <div class="pro-name">Redmi 智能电视 X55</div>
                                         <div class="pro-price">2299元</div>
@@ -78,7 +78,7 @@
                                 <li class="product">
                                     <a href="" target='_blank'>
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-4.jpg" />
+                                            <img src="imgs/nav-img/nav-3-4.jpg" />
                                         </div>
                                         <div class="pro-name">Redmi 红米电视 70英寸 R70A</div>
                                         <div class="pro-price">2999元</div>
@@ -87,7 +87,7 @@
                                  <li class="product">
                                     <a href="" target='_blank'>
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-5.jpg" />
+                                            <img src="imgs/nav-img/nav-3-5.jpg" />
                                         </div>
                                         <div class="pro-name">小米壁画电视 65英寸</div>
                                         <div class="pro-price">6999元</div>
@@ -96,7 +96,7 @@
                                  <li class="product">
                                     <a href="" target='_blank'>
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-6.png" />
+                                            <img src="imgs/nav-img/nav-3-6.png" />
                                         </div>
                                         <div class="pro-name">小米全面屏电视E55A</div>
                                         <div class="pro-price">1749元</div>
