@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav-header />
-        <router-view />
+        <router-view/>
         <nav-footer />
     </div>
 </template>
@@ -13,8 +13,10 @@ export default {
    name:'home',
    data() {
       return {
+        
       }
    },
+
    components: {
        NavHeader,
        NavFooter

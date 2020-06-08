@@ -25,6 +25,7 @@ export default {
       return {
       }
    },
+
    computed: {
        ...mapState(['username'])
    }

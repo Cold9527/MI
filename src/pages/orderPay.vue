@@ -50,12 +50,29 @@
         </div>
       </div>
     </div>
+    <scan-pay-code v-if="showPay" @close='closePayModel' :img='payImage'></scan-pay-code>
+    <Modal
+      title="支付确认"
+      btnType='3'
+      :showModal='showPayModal'
+      sureText="查看订单"
+      cancelText="未支付"
+      @cancel="showPayModal=false"
+      @submit="goOrderList">
+        <template v-slot:body>
+          <p>您确认是否完成订单?</p>
+        </template>
+    </Modal>
   </div>
 </template>
 
 <script>
+import QRcode from 'qrcode'
+import ScanPayCode from './../components/SconPayCode'
+import Modal from './../components/Modal'
 export default {
     name:'orderPay',
+
     data(){
         return {
             orderNo:this.$route.query.orderNo,
@@ -63,16 +80,40 @@ export default {
             orderDetail:[],//订单详情，包含商品列表
             showDetail:false,
             payment:0,
-            payType:''
+            payType:'',
+            showPay: false,
+            payImage:'',
+            showPayModal: false,
+            T:''//定时器
         }
+    },
+    components: {
+      ScanPayCode,
+      Modal
     },
     mounted(){
         this.getOrderDetail()
+
     },
     methods:{
         paySubmit(payType){
             if(payType===1){
                 window.open('/#/order/alipay?orderId='+ this.orderNo, '_blank')
+            }else{
+                this.axios.post('/pay',{
+                      orderId: this.orderNo,
+                      orderName:'小米商城', //扫码支付时订单名称
+                      amount:0.01, //单位元
+                      payType:2 //1支付宝，2微信
+                }).then((res)=>{
+                  QRcode.toDataURL(res.content).then(url=>{
+                    this.showPay = true;
+                    this.payImage = url
+                    this.loopOrderState()
+                  }).catch(()=>{
+                    this.$Message.error('微信支付失败，请刷新页面')
+                  })
+                })
             }
         }, 
         getOrderDetail(){
@@ -82,6 +123,24 @@ export default {
                this.orderDetail = res.orderItemVoList
                this.payment = res.payment
             })
+        },
+        closePayModel(){
+          this.showPay = false
+          this.showPayModal = true
+          clearInterval(this.T)
+        },
+        loopOrderState(){
+          this.T = setInterval(()=>{
+            this.axios.get(`/orders/${this.orderNo}`).then((res) =>{
+              if(res.status == 20){
+                clearInterval(this.T)
+                this.goOrderList()
+              }
+            })
+          },1000)
+        },
+        goOrderList(){
+          this.$router.push('/order/list')
         }
     }
 
